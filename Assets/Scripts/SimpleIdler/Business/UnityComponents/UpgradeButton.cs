@@ -16,13 +16,8 @@ namespace SimpleIdler.Business.UnityComponents
         [Header("Technical")]
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Button _button;
-
-        public void SetNotBoughtText(string buttonName, float cost)
-        {
-            _text.text = $"{buttonName}\n{_costPrefix}{cost}{_costPostfix}";
-        }
-
-        public void SetNotBoughtText(string buttonName, float cost, float income)
+        
+        public void SetSellingText(string buttonName, float cost, float income)
         {
             _text.text = $"{buttonName}\n{_incomePrefix}{income * 100f}{_incomePostfix}\n{_costPrefix}{cost}{_costPostfix}";
         }

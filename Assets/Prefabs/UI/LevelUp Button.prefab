@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 7671115928395913995}
   - component: {fileID: 8698654010734796112}
   - component: {fileID: 8658442027425458185}
-  - component: {fileID: 1337653916987944073}
+  - component: {fileID: 4017193195671700266}
   m_Layer: 5
   m_Name: LevelUp Button
   m_TagString: Untagged
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1337653916987944073
+--- !u!114 &4017193195671700266
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,13 +267,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3802061289357619886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b288abdd684dbfbb559bdfad557277, type: 3}
+  m_Script: {fileID: 11500000, guid: 275efc6c274542778a0cee1e5cd190fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _incomePrefix: 
-  _incomePostfix: 
+  _name: LVL UP
   _costPrefix: "\u0426\u0435\u043D\u0430: "
   _costPostfix: $
-  _boughtText: 
   _text: {fileID: 560252620483151058}
   _button: {fileID: 8658442027425458185}

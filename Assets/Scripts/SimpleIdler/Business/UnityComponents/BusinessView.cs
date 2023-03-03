@@ -17,7 +17,7 @@ namespace SimpleIdler.Business.UnityComponents
         [SerializeField] private TMP_Text _level;
         [SerializeField] private TMP_Text _income;
         [SerializeField] private Slider _progressBar;
-        [field: SerializeField] public UpgradeButton LvlUpButton { get; private set; }
+        [field: SerializeField] public LevelUpButton LvlUpButton { get; private set; }
         [field: SerializeField] public RectTransform UpgradesSpawn { get; private set; }
 
         public override void OnSpawn(EcsEntity entity, EcsWorld world)

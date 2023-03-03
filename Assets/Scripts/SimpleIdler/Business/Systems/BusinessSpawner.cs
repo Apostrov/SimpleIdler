@@ -19,7 +19,7 @@ namespace SimpleIdler.Business.Systems
                 for (id = 0; id < _businessesConfig.Configs.Length; id++)
                 {
                     Data.BusinessConfig config = _businessesConfig.Configs[id];
-                    
+
                     // spawn prefab
                     UnityComponents.BusinessView view = GameObject.Instantiate(_businessesConfig.Prefab, transform);
                     float prefabYPosition = (id + 1) * _businessesConfig.Spacing + id * _businessesConfig.PrefabHeight;
@@ -41,16 +41,16 @@ namespace SimpleIdler.Business.Systems
                     view.SetProgress(0f);
 
                     // lvl up init
-                    view.LvlUpButton.SetNotBoughtText("LVL UP", config.Cost);
+                    view.LvlUpButton.SetText(config.Cost);
                     view.LvlUpButton.OnClick(() => _world.NewEntity().Get<Components.LevelUpSignal>());
-                    
+
                     // upgrades spawn
                     for (int upgradeId = 0; upgradeId < config.Upgrades.Length; upgradeId++)
                     {
                         Data.UpgradeConfig upgradeConfig = config.Upgrades[upgradeId];
                         UnityComponents.UpgradeButton button =
                             GameObject.Instantiate(_businessesConfig.UpgradePrefab, view.UpgradesSpawn);
-                        button.SetNotBoughtText(upgradeConfig.Name, upgradeConfig.Cost, upgradeConfig.IncomeMultiplier);
+                        button.SetSellingText(upgradeConfig.Name, upgradeConfig.Cost, upgradeConfig.IncomeMultiplier);
                         var saveId = upgradeId;
                         button.OnClick(() => _world.NewEntity().Get<Components.UpgradeSignal>().Id = saveId);
                     }
