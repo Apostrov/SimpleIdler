@@ -16,6 +16,8 @@ namespace SimpleIdler
 
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
+            var wallet = new Wallet.Model.WalletsFacade(1, _world);
+
 #if UNITY_EDITOR
             Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
             Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
@@ -26,9 +28,10 @@ namespace SimpleIdler
 
                 // business
                 .Add(new Business.Systems.BusinessSpawner())
+                .Add(new Business.Systems.UpdateBusinessProgress())
 
                 // balance
-                .Add(new Balance.Systems.UpdateBalanceViewProcessing())
+                .Add(new Wallet.Systems.UpdateWalletUIView())
 
                 // one frames
                 .OneFrame<Business.Components.LevelUpSignal>()
@@ -36,6 +39,7 @@ namespace SimpleIdler
 
                 // injects
                 .Inject(_businessesConfig)
+                .Inject(wallet)
                 .Init();
         }
 

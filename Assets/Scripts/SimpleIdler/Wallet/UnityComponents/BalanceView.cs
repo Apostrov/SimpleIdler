@@ -3,7 +3,7 @@ using SimpleIdler.ViewCollector.UnityComponents;
 using TMPro;
 using UnityEngine;
 
-namespace SimpleIdler.Balance.UnityComponents
+namespace SimpleIdler.Wallet.UnityComponents
 {
     public class BalanceView : AViewElement
     {
@@ -15,17 +15,17 @@ namespace SimpleIdler.Balance.UnityComponents
 
         public override void OnSpawn(EcsEntity entity, EcsWorld world)
         {
-            entity.Get<Components.BalanceView>().View = this;
+            entity.Get<Components.WalletUIView>().View = this;
             _currentBalance = -999;
-            SetBalance(0f);
+            SetBalance(0);
+            world.NewEntity().Get<Components.WalletChangedSignal>();
         }
 
-        public void SetBalance(float value)
+        public void SetBalance(int value)
         {
-            int balance = Mathf.RoundToInt(value);
-            if (balance == _currentBalance)
+            if (value == _currentBalance)
                 return;
-            _currentBalance = balance;
+            _currentBalance = value;
             _balance.text = $"{_prefix}{_currentBalance}{_postfix}";
         }
     }

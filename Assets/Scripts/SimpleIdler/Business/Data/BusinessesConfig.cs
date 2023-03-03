@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SimpleIdler.Data
 {
@@ -28,7 +29,7 @@ namespace SimpleIdler.Data
         public float IncomeValue;
         public UpgradeConfig[] Upgrades;
 
-        public float GetIncome(int level, int[] upgradesId = null)
+        public float GetIncome(int level, LinkedList<int> upgradesId = null)
         {
             float income = level * IncomeValue;
             float multiplier = 1f;

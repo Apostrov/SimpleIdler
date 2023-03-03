@@ -1,4 +1,5 @@
-﻿using Leopotam.Ecs;
+﻿using System.Collections.Generic;
+using Leopotam.Ecs;
 using UnityEngine;
 
 namespace SimpleIdler.Business.Systems
@@ -21,7 +22,7 @@ namespace SimpleIdler.Business.Systems
                     Data.BusinessConfig config = _businessesConfig.Configs[id];
 
                     // spawn prefab
-                    UnityComponents.BusinessView view = GameObject.Instantiate(_businessesConfig.Prefab, transform);
+                    var view = GameObject.Instantiate(_businessesConfig.Prefab, transform);
                     float prefabYPosition = (id + 1) * _businessesConfig.Spacing + id * _businessesConfig.PrefabHeight;
                     view.transform.localPosition += new Vector3(0f, -1f * prefabYPosition);
                     EcsEntity entity = _world.NewEntity();
@@ -29,7 +30,9 @@ namespace SimpleIdler.Business.Systems
                     {
                         Id = id,
                         Config = config,
-                        Level = config.StartLevel
+                        Level = config.StartLevel,
+                        LastIncomeTime = Time.time,
+                        UpgradeBought = new LinkedList<int>()
                     };
                     view.OnSpawn(entity, _world);
 
