@@ -5,6 +5,8 @@ namespace SimpleIdler
 {
     internal sealed class EcsStartup : MonoBehaviour
     {
+        [SerializeField] private Data.BusinessesConfig _businessesConfig;
+
         private EcsWorld _world;
         private EcsSystems _systems;
 
@@ -22,10 +24,19 @@ namespace SimpleIdler
                 // init systems
                 .Add(new ViewCollector.Systems.ViewCollectorInit())
 
+                // business
+                .Add(new Business.Systems.BusinessSpawner())
+
                 // balance
                 .Add(new Balance.Systems.UpdateBalanceViewProcessing())
 
+                // one frames
+                .OneFrame<Business.Components.LevelUpSignal>()
+                .OneFrame<Business.Components.Upgrade1Signal>()
+                .OneFrame<Business.Components.Upgrade2Signal>()
+
                 // injects
+                .Inject(_businessesConfig)
                 .Init();
         }
 

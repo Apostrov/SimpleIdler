@@ -4,8 +4,8 @@ namespace SimpleIdler.Balance.Systems
 {
     public class UpdateBalanceViewProcessing : IEcsInitSystem, IEcsRunSystem
     {
-        private EcsFilter<Components.Balance> _balance;
-        private EcsFilter<Components.BalanceView> _view;
+        private EcsFilter<Components.Balance, Components.BalanceView> _balance;
+        private EcsFilter<Components.BalanceView>.Exclude<Components.BalanceView> _view;
 
         private EcsWorld _world;
 
@@ -13,10 +13,9 @@ namespace SimpleIdler.Balance.Systems
         {
             if (_balance.IsEmpty())
             {
-                _world.NewEntity().Get<Components.Balance>().Value = 0f;
-
                 foreach (var idx in _view)
                 {
+                    _view.GetEntity(idx).Get<Components.Balance>().Value = 0f;
                     _view.Get1(idx).View.SetBalance(0f);
                 }
             }
@@ -24,14 +23,9 @@ namespace SimpleIdler.Balance.Systems
 
         public void Run()
         {
-            foreach (var balanceIdx in _balance)
+            foreach (var idx in _balance)
             {
-                var balance = _balance.Get1(balanceIdx).Value;
-
-                foreach (var viewIdx in _view)
-                {
-                    _view.Get1(viewIdx).View.SetBalance(balance);
-                }
+                _balance.Get2(idx).View.SetBalance(_balance.Get1(idx).Value);
             }
         }
     }
