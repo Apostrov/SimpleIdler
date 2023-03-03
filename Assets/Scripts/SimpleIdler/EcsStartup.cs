@@ -19,17 +19,10 @@ namespace SimpleIdler
             Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
 #endif
             _systems
-                // register your systems here, for example:
-                // .Add (new TestSystem1 ())
-                // .Add (new TestSystem2 ())
+                // init systems
+                .Add(new ViewCollector.Systems.ViewCollectorInit())
 
-                // register one-frame components (order is important), for example:
-                // .OneFrame<TestComponent1> ()
-                // .OneFrame<TestComponent2> ()
-
-                // inject service instances here (order doesn't important), for example:
-                // .Inject (new CameraService ())
-                // .Inject (new NavMeshSupport ())
+                // injects
                 .Init();
         }
 
