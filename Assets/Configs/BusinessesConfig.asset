@@ -34,8 +34,8 @@ MonoBehaviour:
   - Name: "\u0417\u0430\u043D\u044F\u0442\u044C \u0443 \u0431\u0430\u0431\u0443\u0448\u043A\u0438"
     StartLevel: 0
     Cost: 40
-    IncomeDelay: 3
-    IncomeValue: 3
+    IncomeDelay: 6
+    IncomeValue: 40
     Upgrades:
     - Name: "\u0417\u0430\u043D\u0438\u043C\u0430\u0442\u044C \u0432\u0441\u044E
         \u043F\u0435\u043D\u0441\u0438\u044E"

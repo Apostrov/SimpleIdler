@@ -44,8 +44,8 @@ namespace SimpleIdler.Business.Systems
                     view.SetProgress(0f);
 
                     // lvl up init
-                    view.LvlUpButton.SetText(config.Cost);
-                    view.LvlUpButton.OnClick(() => _world.NewEntity().Get<Components.LevelUpSignal>());
+                    view.LvlUpButton.SetText(config.GetCost(config.StartLevel));
+                    view.LvlUpButton.OnClick(() => entity.Get<Components.LevelUpSignal>());
 
                     // upgrades spawn
                     for (int upgradeId = 0; upgradeId < config.Upgrades.Length; upgradeId++)
@@ -55,7 +55,7 @@ namespace SimpleIdler.Business.Systems
                             GameObject.Instantiate(_businessesConfig.UpgradePrefab, view.UpgradesSpawn);
                         button.SetSellingText(upgradeConfig.Name, upgradeConfig.Cost, upgradeConfig.IncomeMultiplier);
                         var saveId = upgradeId;
-                        button.OnClick(() => _world.NewEntity().Get<Components.UpgradeSignal>().Id = saveId);
+                        button.OnClick(() => entity.Get<Components.UpgradeSignal>().Id = saveId);
                     }
                 }
 

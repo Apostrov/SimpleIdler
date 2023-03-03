@@ -22,7 +22,7 @@ namespace SimpleIdler.Data
         [Header("View")]
         public string Name;
         public int StartLevel;
-        public float Cost;
+        public int Cost;
 
         [Header("Income")]
         public float IncomeDelay;
@@ -43,6 +43,11 @@ namespace SimpleIdler.Data
 
             return income * multiplier;
         }
+
+        public int GetCost(int level)
+        {
+            return (level + 1) * Cost;
+        }
     }
 
     [System.Serializable]
@@ -51,5 +56,10 @@ namespace SimpleIdler.Data
         public string Name;
         public float Cost;
         public float IncomeMultiplier;
+
+        public float GetCost(int level)
+        {
+            return (level + 1) * Cost;
+        }
     }
 }

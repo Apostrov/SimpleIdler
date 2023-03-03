@@ -29,8 +29,9 @@ namespace SimpleIdler
                 // business
                 .Add(new Business.Systems.BusinessSpawner())
                 .Add(new Business.Systems.UpdateBusinessProgress())
+                .Add(new Business.Systems.BusinessLevelUp())
 
-                // balance
+                // wallet
                 .Add(new Wallet.Systems.UpdateWalletUIView())
 
                 // one frames
