@@ -22,6 +22,9 @@ namespace SimpleIdler
                 // init systems
                 .Add(new ViewCollector.Systems.ViewCollectorInit())
 
+                // balance
+                .Add(new Balance.Systems.UpdateBalanceViewProcessing())
+
                 // injects
                 .Init();
         }
