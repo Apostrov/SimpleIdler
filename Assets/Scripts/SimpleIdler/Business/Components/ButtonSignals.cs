@@ -4,11 +4,8 @@
     {
     }
 
-    public struct Upgrade1Signal
+    public struct UpgradeSignal
     {
-    }
-
-    public struct Upgrade2Signal
-    {
+        public int Id;
     }
 }

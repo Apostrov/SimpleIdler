@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace SimpleIdler.Business.UnityComponents
 {
-    public class BusinessButton : MonoBehaviour
+    public class UpgradeButton : MonoBehaviour
     {
         [SerializeField] private string _incomePrefix;
         [SerializeField] private string _incomePostfix;

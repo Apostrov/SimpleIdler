@@ -15,18 +15,18 @@ MonoBehaviour:
   Spacing: 30
   PrefabHeight: 750
   Prefab: {fileID: 5580472247727551203, guid: 756878f8035e3c5438e740800ec370f9, type: 3}
+  UpgradePrefab: {fileID: 1927568457184896382, guid: 437586b836c08cf4e994f42ee48f2931, type: 3}
   Configs:
   - Name: "\u0417\u0430\u0432\u043E\u0434"
     StartLevel: 1
     Cost: 3
     IncomeDelay: 3
     IncomeValue: 3
-    Upgrade1:
-      Name: "\u0411\u043E\u043B\u044C\u0448\u0435 \u043B\u044E\u0434\u0435\u0439"
+    Upgrades:
+    - Name: "\u0411\u043E\u043B\u044C\u0448\u0435 \u043B\u044E\u0434\u0435\u0439"
       Cost: 50
       IncomeMultiplier: 0.5
-    Upgrade2:
-      Name: "\u0411\u043E\u043B\u044C\u0448\u0435 \u0437\u0430\u0432\u043E\u0434"
+    - Name: "\u0411\u043E\u043B\u044C\u0448\u0435 \u0437\u0430\u0432\u043E\u0434\u043E\u0432"
       Cost: 400
       IncomeMultiplier: 1
   - Name: "\u0424\u0430\u0431\u0440\u0438\u043A\u0430"
@@ -34,24 +34,4 @@ MonoBehaviour:
     Cost: 40
     IncomeDelay: 6
     IncomeValue: 40
-    Upgrade1:
-      Name: "\u0411\u043E\u043B\u044C\u0448\u0435 \u043B\u044E\u0434\u0435\u0439"
-      Cost: 1200
-      IncomeMultiplier: 1
-    Upgrade2:
-      Name: "\u0411\u043E\u043B\u044C\u0448\u0435 \u0441\u0442\u0430\u043D\u043A\u043E\u0432"
-      Cost: 4000
-      IncomeMultiplier: 2
-  - Name: "\u0424\u0430\u0431\u0440\u0438\u043A\u0430"
-    StartLevel: 0
-    Cost: 40
-    IncomeDelay: 6
-    IncomeValue: 40
-    Upgrade1:
-      Name: "\u0411\u043E\u043B\u044C\u0448\u0435 \u043B\u044E\u0434\u0435\u0439"
-      Cost: 1200
-      IncomeMultiplier: 1
-    Upgrade2:
-      Name: "\u0411\u043E\u043B\u044C\u0448\u0435 \u0441\u0442\u0430\u043D\u043A\u043E\u0432"
-      Cost: 4000
-      IncomeMultiplier: 2
+    Upgrades: []

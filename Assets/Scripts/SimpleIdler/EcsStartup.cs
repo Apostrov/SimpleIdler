@@ -32,8 +32,7 @@ namespace SimpleIdler
 
                 // one frames
                 .OneFrame<Business.Components.LevelUpSignal>()
-                .OneFrame<Business.Components.Upgrade1Signal>()
-                .OneFrame<Business.Components.Upgrade2Signal>()
+                .OneFrame<Business.Components.UpgradeSignal>()
 
                 // injects
                 .Inject(_businessesConfig)

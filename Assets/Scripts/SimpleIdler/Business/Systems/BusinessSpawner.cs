@@ -18,7 +18,7 @@ namespace SimpleIdler.Business.Systems
                 int id = 0;
                 for (id = 0; id < _businessesConfig.Configs.Length; id++)
                 {
-                    var config = _businessesConfig.Configs[id];
+                    Data.BusinessConfig config = _businessesConfig.Configs[id];
                     
                     // spawn prefab
                     UnityComponents.BusinessView view = GameObject.Instantiate(_businessesConfig.Prefab, transform);
@@ -43,16 +43,17 @@ namespace SimpleIdler.Business.Systems
                     // lvl up init
                     view.LvlUpButton.SetNotBoughtText("LVL UP", config.Cost);
                     view.LvlUpButton.OnClick(() => _world.NewEntity().Get<Components.LevelUpSignal>());
-
-                    // upgrade 1 init
-                    view.Upgrade1.SetNotBoughtText(config.Upgrade1.Name, config.Upgrade1.Cost,
-                        config.Upgrade1.IncomeMultiplier);
-                    view.Upgrade1.OnClick(() => _world.NewEntity().Get<Components.Upgrade1Signal>());
-
-                    // upgrade 2 init
-                    view.Upgrade2.SetNotBoughtText(config.Upgrade2.Name, config.Upgrade2.Cost,
-                        config.Upgrade2.IncomeMultiplier);
-                    view.Upgrade2.OnClick(() => _world.NewEntity().Get<Components.Upgrade2Signal>());
+                    
+                    // upgrades spawn
+                    for (int upgradeId = 0; upgradeId < config.Upgrades.Length; upgradeId++)
+                    {
+                        Data.UpgradeConfig upgradeConfig = config.Upgrades[upgradeId];
+                        UnityComponents.UpgradeButton button =
+                            GameObject.Instantiate(_businessesConfig.UpgradePrefab, view.UpgradesSpawn);
+                        button.SetNotBoughtText(upgradeConfig.Name, upgradeConfig.Cost, upgradeConfig.IncomeMultiplier);
+                        var saveId = upgradeId;
+                        button.OnClick(() => _world.NewEntity().Get<Components.UpgradeSignal>().Id = saveId);
+                    }
                 }
 
                 Vector2 size = transform.sizeDelta;

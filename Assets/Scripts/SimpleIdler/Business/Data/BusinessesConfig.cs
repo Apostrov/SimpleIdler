@@ -9,7 +9,8 @@ namespace SimpleIdler.Data
         public float Spacing;
         public float PrefabHeight;
         public Business.UnityComponents.BusinessView Prefab;
-        
+        public Business.UnityComponents.UpgradeButton UpgradePrefab;
+
         [Header("Configs")]
         public BusinessConfig[] Configs;
     }
@@ -25,19 +26,20 @@ namespace SimpleIdler.Data
         [Header("Income")]
         public float IncomeDelay;
         public float IncomeValue;
+        public UpgradeConfig[] Upgrades;
 
-        [Header("Upgrades")]
-        public UpgradeConfig Upgrade1;
-        public UpgradeConfig Upgrade2;
-
-        public float GetIncome(int level, bool hasUpgrade1 = false, bool hasUpgrade2 = false)
+        public float GetIncome(int level, int[] upgradesId = null)
         {
             float income = level * IncomeValue;
             float multiplier = 1f;
-            if (hasUpgrade1)
-                multiplier += Upgrade1.IncomeMultiplier;
-            if (hasUpgrade2)
-                multiplier += Upgrade2.IncomeMultiplier;
+            if (upgradesId == null)
+                return income;
+
+            foreach (var id in upgradesId)
+            {
+                multiplier += Upgrades[id].IncomeMultiplier;
+            }
+
             return income * multiplier;
         }
     }
