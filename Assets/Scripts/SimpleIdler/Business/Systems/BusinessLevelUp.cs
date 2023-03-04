@@ -1,5 +1,4 @@
 ﻿using Leopotam.Ecs;
-using UnityEngine;
 
 namespace SimpleIdler.Business.Systems
 {
@@ -23,7 +22,7 @@ namespace SimpleIdler.Business.Systems
 
                 ref var view = ref _business.Get2(idx).View;
                 view.SetLevel(business.Level);
-                view.SetIncome(business.Config.GetIncome(business.Level));
+                view.SetIncome(business.Config.GetIncome(business.Level, business.UpgradeBought));
                 view.LvlUpButton.SetCost(business.Config.GetCost(business.Level));
 
                 Model.BusinessDataSaver.SaveLevel(business.Id, business.Level);

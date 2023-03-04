@@ -21,16 +21,16 @@ namespace SimpleIdler.Business.Model
             return PlayerPrefs.GetInt(LEVEL_KEY + id, 0);
         }
 
-        public static void SaveUpgrades(int id, LinkedList<int> upgrades)
+        public static void SaveUpgrades(int id, HashSet<int> upgrades)
         {
             PlayerPrefsX.SetIntArray(UPGRADES_KEY + id, upgrades.ToArray());
             PlayerPrefs.Save();
         }
 
-        public static LinkedList<int> LoadUpgrades(int id)
+        public static HashSet<int> LoadUpgrades(int id)
         {
             int[] upgradesId = PlayerPrefsX.GetIntArray(UPGRADES_KEY + id);
-            return new LinkedList<int>(upgradesId);
+            return new HashSet<int>(upgradesId);
         }
 
         public static void SaveProgress(int id, float progress)

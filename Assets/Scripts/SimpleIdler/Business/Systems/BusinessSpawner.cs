@@ -15,23 +15,24 @@ namespace SimpleIdler.Business.Systems
         {
             foreach (var idx in _spawn)
             {
-                RectTransform transform = _spawn.Get1(idx).Transform;
+                var transform = _spawn.Get1(idx).Transform;
                 int id = 0;
                 for (id = 0; id < _businessesConfig.Configs.Length; id++)
                 {
-                    Configs.BusinessConfig config = _businessesConfig.Configs[id];
+                    var config = _businessesConfig.Configs[id];
+                    float prefabYPosition = (id + 1) * _businessesConfig.Spacing + id * _businessesConfig.PrefabHeight;
 
                     // spawn prefab
-                    var view = GameObject.Instantiate(_businessesConfig.Prefab, transform);
-                    float prefabYPosition = (id + 1) * _businessesConfig.Spacing + id * _businessesConfig.PrefabHeight;
-                    view.transform.localPosition += new Vector3(0f, -1f * prefabYPosition);
-                    EcsEntity entity = _world.NewEntity();
-                    view.OnSpawn(entity, _world);
+                    var business = GameObject.Instantiate(_businessesConfig.Prefab, transform);
+                    business.transform.localPosition += new Vector3(0f, -1f * prefabYPosition);
+                    var entity = _world.NewEntity();
+                    business.OnSpawn(entity, _world);
+                    ref var view = ref entity.Get<Components.BusinessView>();
 
                     // load values
                     int level = Model.BusinessDataSaver.LoadLevel(id);
                     level = level == 0 ? config.StartLevel : level;
-                    LinkedList<int> upgrades = Model.BusinessDataSaver.LoadUpgrades(id);
+                    HashSet<int> upgrades = Model.BusinessDataSaver.LoadUpgrades(id);
                     float progress = Model.BusinessDataSaver.LoadProgress(id);
 
                     // fill component
@@ -46,25 +47,35 @@ namespace SimpleIdler.Business.Systems
                     entity.Get<Components.SpawnedSignal>();
 
                     // base init
-                    view.SetActive(true);
-                    view.SetName(config.Name);
-                    view.SetLevel(level);
-                    view.SetIncome(config.GetIncome(level, upgrades));
-                    view.SetProgress(progress);
+                    business.SetActive(true);
+                    business.SetName(config.Name);
+                    business.SetLevel(level);
+                    business.SetIncome(config.GetIncome(level, upgrades));
+                    business.SetProgress(progress);
 
                     // lvl up init
-                    view.LvlUpButton.SetCost(config.GetCost(level));
-                    view.LvlUpButton.OnClick(() => entity.Get<Components.LevelUpSignal>());
+                    business.LvlUpButton.SetCost(config.GetCost(level));
+                    business.LvlUpButton.OnClick(() => entity.Get<Components.LevelUpSignal>());
 
                     // upgrades spawn
                     for (int upgradeId = 0; upgradeId < config.Upgrades.Length; upgradeId++)
                     {
-                        Configs.UpgradeConfig upgradeConfig = config.Upgrades[upgradeId];
-                        UnityComponents.UpgradeButton button =
-                            GameObject.Instantiate(_businessesConfig.UpgradePrefab, view.UpgradesSpawn);
-                        button.SetSellingText(upgradeConfig.Name, upgradeConfig.Cost, upgradeConfig.IncomeMultiplier);
-                        var saveId = upgradeId;
-                        button.OnClick(() => entity.Get<Components.UpgradeSignal>().Id = saveId);
+                        var upgradeConfig = config.Upgrades[upgradeId];
+                        var button = GameObject.Instantiate(_businessesConfig.UpgradePrefab, business.UpgradesSpawn);
+                        view.Upgrades.Add(button);
+
+                        if (upgrades.Contains(upgradeId))
+                        {
+                            button.SetBoughtText(upgradeConfig.Name, upgradeConfig.IncomeMultiplier);
+                        }
+                        else
+                        {
+                            button.SetSellingText(upgradeConfig.Name, upgradeConfig.Cost,
+                                upgradeConfig.IncomeMultiplier);
+                        }
+
+                        int saveId = upgradeId;
+                        button.OnClick(() => entity.Get<Components.NewUpgradeSignal>().Id = saveId);
                     }
                 }
 

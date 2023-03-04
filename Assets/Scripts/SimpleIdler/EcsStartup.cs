@@ -30,13 +30,14 @@ namespace SimpleIdler
                 .Add(new Business.Systems.BusinessSpawner())
                 .Add(new Business.Systems.UpdateBusinessProgress(0.1f))
                 .Add(new Business.Systems.BusinessLevelUp())
+                .Add(new Business.Systems.UpgradeBuy())
 
                 // wallet
                 .Add(new Wallet.Systems.UpdateWalletUIView())
 
                 // one frames
                 .OneFrame<Business.Components.LevelUpSignal>()
-                .OneFrame<Business.Components.UpgradeSignal>()
+                .OneFrame<Business.Components.NewUpgradeSignal>()
                 .OneFrame<Business.Components.SpawnedSignal>()
 
                 // injects

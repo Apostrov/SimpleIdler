@@ -1,4 +1,5 @@
-﻿using Leopotam.Ecs;
+﻿using System.Collections.Generic;
+using Leopotam.Ecs;
 using SimpleIdler.ViewCollector.UnityComponents;
 using TMPro;
 using UnityEngine;
@@ -22,7 +23,11 @@ namespace SimpleIdler.Business.UnityComponents
 
         public override void OnSpawn(EcsEntity entity, EcsWorld world)
         {
-            entity.Get<Components.BusinessView>().View = this;
+            entity.Get<Components.BusinessView>() = new Components.BusinessView
+            {
+                View = this,
+                Upgrades = new List<UpgradeButton>()
+            };
         }
 
         public void SetActive(bool value)

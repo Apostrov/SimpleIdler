@@ -4,7 +4,7 @@
     {
     }
 
-    public struct UpgradeSignal
+    public struct NewUpgradeSignal
     {
         public int Id;
     }

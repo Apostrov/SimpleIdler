@@ -29,7 +29,7 @@ namespace SimpleIdler.Configs
         public float IncomeValue;
         public UpgradeConfig[] Upgrades;
 
-        public float GetIncome(int level, LinkedList<int> upgradesId = null)
+        public float GetIncome(int level, HashSet<int> upgradesId)
         {
             float income = level * IncomeValue;
             float multiplier = 1f;
@@ -54,12 +54,7 @@ namespace SimpleIdler.Configs
     public class UpgradeConfig
     {
         public string Name;
-        public float Cost;
+        public int Cost;
         public float IncomeMultiplier;
-
-        public float GetCost(int level)
-        {
-            return (level + 1) * Cost;
-        }
     }
 }
