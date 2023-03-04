@@ -9,7 +9,7 @@ namespace SimpleIdler.Business.Systems
         private EcsFilter<Components.BusinessSpawnTransform> _spawn;
 
         private EcsWorld _world;
-        private Data.BusinessesConfig _businessesConfig;
+        private Configs.BusinessesConfig _businessesConfig;
 
         public void Init()
         {
@@ -19,38 +19,47 @@ namespace SimpleIdler.Business.Systems
                 int id = 0;
                 for (id = 0; id < _businessesConfig.Configs.Length; id++)
                 {
-                    Data.BusinessConfig config = _businessesConfig.Configs[id];
+                    Configs.BusinessConfig config = _businessesConfig.Configs[id];
 
                     // spawn prefab
                     var view = GameObject.Instantiate(_businessesConfig.Prefab, transform);
                     float prefabYPosition = (id + 1) * _businessesConfig.Spacing + id * _businessesConfig.PrefabHeight;
                     view.transform.localPosition += new Vector3(0f, -1f * prefabYPosition);
                     EcsEntity entity = _world.NewEntity();
+                    view.OnSpawn(entity, _world);
+
+                    // load values
+                    int level = Model.BusinessDataSaver.LoadLevel(id);
+                    level = level == 0 ? config.StartLevel : level;
+                    LinkedList<int> upgrades = Model.BusinessDataSaver.LoadUpgrades(id);
+                    float progress = Model.BusinessDataSaver.LoadProgress(id);
+
+                    // fill component
                     entity.Get<Components.Business>() = new Components.Business
                     {
                         Id = id,
                         Config = config,
-                        Level = config.StartLevel,
-                        LastIncomeTime = Time.time,
-                        UpgradeBought = new LinkedList<int>()
+                        Level = level,
+                        TimePassedAfterIncome = config.IncomeDelay * progress,
+                        UpgradeBought = upgrades
                     };
-                    view.OnSpawn(entity, _world);
+                    entity.Get<Components.SpawnedSignal>();
 
                     // base init
                     view.SetActive(true);
                     view.SetName(config.Name);
-                    view.SetLevel(config.StartLevel);
-                    view.SetIncome(config.GetIncome(config.StartLevel));
-                    view.SetProgress(0f);
+                    view.SetLevel(level);
+                    view.SetIncome(config.GetIncome(level, upgrades));
+                    view.SetProgress(progress);
 
                     // lvl up init
-                    view.LvlUpButton.SetText(config.GetCost(config.StartLevel));
+                    view.LvlUpButton.SetCost(config.GetCost(level));
                     view.LvlUpButton.OnClick(() => entity.Get<Components.LevelUpSignal>());
 
                     // upgrades spawn
                     for (int upgradeId = 0; upgradeId < config.Upgrades.Length; upgradeId++)
                     {
-                        Data.UpgradeConfig upgradeConfig = config.Upgrades[upgradeId];
+                        Configs.UpgradeConfig upgradeConfig = config.Upgrades[upgradeId];
                         UnityComponents.UpgradeButton button =
                             GameObject.Instantiate(_businessesConfig.UpgradePrefab, view.UpgradesSpawn);
                         button.SetSellingText(upgradeConfig.Name, upgradeConfig.Cost, upgradeConfig.IncomeMultiplier);

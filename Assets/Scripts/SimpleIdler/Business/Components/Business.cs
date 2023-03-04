@@ -5,9 +5,13 @@ namespace SimpleIdler.Business.Components
     public struct Business
     {
         public int Id;
-        public Data.BusinessConfig Config;
+        public Configs.BusinessConfig Config;
         public int Level;
-        public float LastIncomeTime;
+        public float TimePassedAfterIncome;
         public LinkedList<int> UpgradeBought;
+    }
+
+    public struct SpawnedSignal
+    {
     }
 }

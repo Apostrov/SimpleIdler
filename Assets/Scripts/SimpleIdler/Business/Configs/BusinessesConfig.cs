@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SimpleIdler.Data
+namespace SimpleIdler.Configs
 {
     [CreateAssetMenu(fileName = "BusinessesConfig", menuName = "SimpleIdler/Data/BusinessesConfig")]
     public class BusinessesConfig : ScriptableObject
@@ -12,7 +12,7 @@ namespace SimpleIdler.Data
         public Business.UnityComponents.BusinessView Prefab;
         public Business.UnityComponents.UpgradeButton UpgradePrefab;
 
-        [Header("Configs")]
+        [Header("Business")]
         public BusinessConfig[] Configs;
     }
 

@@ -15,7 +15,7 @@ namespace SimpleIdler.Business.UnityComponents
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Button _button;
 
-        public void SetText(float cost)
+        public void SetCost(float cost)
         {
             _text.text = $"{_name}\n{_costPrefix}{cost}{_costPostfix}";
         }

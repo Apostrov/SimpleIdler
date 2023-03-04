@@ -20,15 +20,13 @@ namespace SimpleIdler.Business.Systems
 
                 _wallets.Player.Amount -= cost;
                 business.Level++;
-                if (business.Level == 1)
-                {
-                    business.LastIncomeTime = Time.time;
-                }
 
                 ref var view = ref _business.Get2(idx).View;
                 view.SetLevel(business.Level);
                 view.SetIncome(business.Config.GetIncome(business.Level));
-                view.LvlUpButton.SetText(business.Config.GetCost(business.Level));
+                view.LvlUpButton.SetCost(business.Config.GetCost(business.Level));
+
+                Model.BusinessDataSaver.SaveLevel(business.Id, business.Level);
             }
         }
     }

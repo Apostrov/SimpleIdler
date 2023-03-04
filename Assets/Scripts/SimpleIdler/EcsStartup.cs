@@ -5,7 +5,7 @@ namespace SimpleIdler
 {
     internal sealed class EcsStartup : MonoBehaviour
     {
-        [SerializeField] private Data.BusinessesConfig _businessesConfig;
+        [SerializeField] private Configs.BusinessesConfig _businessesConfig;
 
         private EcsWorld _world;
         private EcsSystems _systems;
@@ -28,7 +28,7 @@ namespace SimpleIdler
 
                 // business
                 .Add(new Business.Systems.BusinessSpawner())
-                .Add(new Business.Systems.UpdateBusinessProgress())
+                .Add(new Business.Systems.UpdateBusinessProgress(0.1f))
                 .Add(new Business.Systems.BusinessLevelUp())
 
                 // wallet
@@ -37,6 +37,7 @@ namespace SimpleIdler
                 // one frames
                 .OneFrame<Business.Components.LevelUpSignal>()
                 .OneFrame<Business.Components.UpgradeSignal>()
+                .OneFrame<Business.Components.SpawnedSignal>()
 
                 // injects
                 .Inject(_businessesConfig)
