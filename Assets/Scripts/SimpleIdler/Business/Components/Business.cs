@@ -10,8 +10,4 @@ namespace SimpleIdler.Business.Components
         public float TimePassedAfterIncome;
         public HashSet<int> UpgradeBought;
     }
-
-    public struct SpawnedSignal
-    {
-    }
 }

@@ -44,7 +44,6 @@ namespace SimpleIdler.Business.Systems
                         TimePassedAfterIncome = config.IncomeDelay * progress,
                         UpgradeBought = upgrades
                     };
-                    entity.Get<Components.SpawnedSignal>();
 
                     // base init
                     business.SetActive(true);
