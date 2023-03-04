@@ -155,7 +155,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.default.simpleidler
+    Android: com.defaultCompany.simpleidler
     Standalone: com.DefaultCompany.2DProject
   buildNumber:
     Standalone: 0
